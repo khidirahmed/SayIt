@@ -1,2 +1,2 @@
 # SayIt
-NYU buildathon Project
+# 
