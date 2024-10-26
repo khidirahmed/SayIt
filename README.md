@@ -1,13 +1,17 @@
 # SayIt - Anonymous Feedback Application
-We at SayIt strongly believe in enforcing a positive feedback environment, so we created this anonymous app. In our app, users can provide feedback on certain problems relevant to their current situation while also maintaining their identity. Our feedback system is location-based and will function on a voting system where the user will upload a thought and others will have to upvote or downvote this thought based on accuracy. Once the user's comment has been approved by our small chosen test-group, we will then and only then move this comment more outward.
+We at SayIt strongly believe in enforcing a positive feedback environment, so we created this anonymous app. In our app, users can provide feedback on certain problems relevant to their current situation while also maintaining their identity. Our feedback system is location-based and will function on a voting system where the user will upload a thought and others will have to upvote or downvote this thought based on accuracy. Once the user's comment has been approved by our small chosen test group, we will then and only then move this comment to reach more people. 
+Our app 
+
 
 
 # Distinction
 SayIt offers a localized, location-based alternative to global, often impersonal, feedback forums such as that of Reddit.
 
 
+
 # Getting Started
 To get started
+
 
 
 # Installment
