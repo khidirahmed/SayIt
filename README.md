@@ -17,6 +17,7 @@ To get started
 
 <br/>
 <br/>
+
 # Contact
 For further inquiries, contact information is found [here](). 
 <br/>
@@ -24,6 +25,7 @@ For further inquiries, contact information is found [here]().
 
 # Acknowledgement
 Huge shoutout to one of our close friends, Dan, for inspiring this idea. <br/>
+<br/>
 Founders <br/>
 [Ajay Temal](https://www.linkedin.com/in/ajay-temal-b93889278/) <br/>
 [Khidir Ahmed](https://www.linkedin.com/in/khidirahmed/) <br/>
