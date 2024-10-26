@@ -8,9 +8,9 @@ import { getFirestore, serverTimestamp } from "firebase/firestore";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyDxZ6F2Ww3EOvME-IiQVDhRmeyO_frCWDE",
-  authDomain: "sayit-2af2e.firebaseapp.com",
-  projectId: "sayit-2af2e",
+  apiKey: process.env.GoogleFirebaseAPIKey,
+  authDomain: process.env.AuthentificationId,
+  projectId: process.env.ProjectId,
   storageBucket: "sayit-2af2e.appspot.com",
   messagingSenderId: "567470998924",
   appId: "1:567470998924:web:f2f1a358b9c96cf95102a9",
