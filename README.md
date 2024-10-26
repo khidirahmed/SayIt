@@ -14,6 +14,12 @@ To get started
 # Installment
 <br/>
 <br/>
+
+<br/>
+<br/>
+# Contact
+For further inquiries, contact information is found [here]().
+
 # Acknowledgement
 Huge shoutout to one of our close friends, Dan, for inspiring this idea.
 <br/>
@@ -22,7 +28,3 @@ Founders
 [Khidir Ahmed](https://www.linkedin.com/in/khidirahmed/) <br/>
 [Omobolaji Alabi](https://www.linkedin.com/in/omobolaji-alabi/) <br/>
 [Vishram Doodnauth](www.linkedin.com/in/vishramdoodnauth) <br/>
-<br/>
-<br/>
-# Contact
-For further inquiries, contact information is found [here]().
