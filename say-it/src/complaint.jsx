@@ -28,7 +28,7 @@ const Complaint = ({ messages }) => {
                         <p className="complaining" style={{ flex: 1, fontSize: 25 }} >{message.text}</p>
                         <div style={{ display: "flex", alignItems: "center" }}>
                         <button onClick={() => handleUpvote(message.id, message.votes)}>👍</button>
-                            <span style={{ margin: "0 5px" }}></span>
+                            <span style={{ margin: "0 5px" }}>{message.votes}</span>
                             <button onClick={() => handleDownvote(message.id, message.votes)}>👎</button>
                         </div>
                     </div>) :
