@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { db, serverTimestamp } from "./firebase";
 import './App.css';
-import Complaint from "./Components/complaint";
+import Complaint from "./complaint";
 import { collection, addDoc, onSnapshot, orderBy, query} from "firebase/firestore";
 
 const ChatRoom = () => {

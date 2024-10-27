@@ -1,6 +1,6 @@
 import React from "react"
 
-import { db} from "/Users/bolajialabi/Documents/GitHub/SayIt/say-it/src/firebase.js";
+import { db} from "./firebase.js";
 import { doc, updateDoc} from "firebase/firestore";
 
 
@@ -15,7 +15,7 @@ const Complaint = ({ messages }) => {
 
     // Function to handle downvoting a message
     const handleDownvote = async (messageId, currentVotes) => {
-        const messageRef = doc(db, "nearbyChat", "chatRoom", "messages", messageId);
+        const messageRef = doc(db, "nearbyChat", "chxatRoom", "messages", messageId);
         await updateDoc(messageRef, {
             votes: currentVotes - 1
         });
