@@ -56,7 +56,7 @@ const ChatRoom = () => {
             Math.cos(loc2.latitude * (Math.PI / 180)) *
             Math.sin(dLon / 2) * Math.sin(dLon / 2);
         const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-        return R * c; // Distance in km
+        return (R * c); // Distance in km
     };
 
     // Filter messages based on proximity
