@@ -1,0 +1,46 @@
+/* App.css */
+.App {
+  font-family: Segoe UI, sans-serif;
+  color: #FF0000;
+}
+
+.header-image {
+  width: 100%; /* Makes the image take up the full width of its container */
+  height: auto; /* Maintains the aspect ratio */
+}
+
+.button:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+}
+
+.button:active {
+  transform: translateY(2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.button:focus {
+  outline: none;
+
+}
+
+.button-container {
+  display: flex;
+  flex-direction: column; /* Stack buttons vertically */
+  gap: 30px; /* Space between buttons */
+}
+.button {
+  flex: 0 0 50px;
+  font-family: Segoe UI, sans-serif;
+  background: linear-gradient(135deg, #FF0000, orange);
+  color: white;
+  font-size: 1.5em;
+  font-weight: bold; 
+  padding: 15px 30px;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.2s, box-shadow 0.3s;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  outline: none;
+}

@@ -2,8 +2,12 @@ import React, { useState, useEffect } from "react";
 import { db, serverTimestamp } from "./firebase";
 import './App.css';
 import Complaint from "./complaint";
+<<<<<<< HEAD
 import BluetoothProx from "./Bluetoothprox";  // Import BluetoothProx
 import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
+=======
+import { collection, addDoc, onSnapshot, orderBy, query} from "firebase/firestore";
+>>>>>>> 17a10d6a2ab2c9ce7c298a247b4c01771ff449c1
 
 const ChatRoom = () => {
     const [messages, setMessages] = useState([]);
