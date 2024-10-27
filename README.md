@@ -30,4 +30,6 @@ Founders: <br/>
 [Ajay Temal](https://www.linkedin.com/in/ajay-temal-b93889278/) <br/>
 [Khidir Ahmed](https://www.linkedin.com/in/khidirahmed/) <br/>
 [Omobolaji Alabi](https://www.linkedin.com/in/omobolaji-alabi/) <br/>
-[Vishram Doodnauth](www.linkedin.com/in/vishramdoodnauth) <br/>
+[Vishram Doodnauth](https://www.linkedin.com/in/vishramdoodnauth/) <br/>
+<br/>
+
