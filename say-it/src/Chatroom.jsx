@@ -10,6 +10,7 @@ import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firesto
 const ChatRoom = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
+    const [userLocation, setUserLocation] = useState(null);
 
     // Fetch messages in real-time
     useEffect(() => {
@@ -29,21 +30,43 @@ const ChatRoom = () => {
     // Function to handle sending a new message
     const handleSendMessage = async (e) => {
         e.preventDefault();
-        if (newMessage.trim()) {
+        if (newMessage.trim() && userLocation) {
             const chatRoomRef = collection(db, "nearbyChat", "chatRoom", "messages");
 
             await addDoc(chatRoomRef, {
                 text: newMessage,
                 timestamp: serverTimestamp(),
+                location: userLocation, // Store user's location with the message
                 votes: 0 // Initialize votes to 0
             });
             setNewMessage(""); // Clear input field
         }
     };
 
+    // Calculate distance between two coordinates
+    const calculateDistance = (loc1, loc2) => {
+        if (!loc1 || !loc2) return Infinity; // If location data is missing
+        const R = 6371; // Radius of the Earth in km
+        const dLat = (loc2.latitude - loc1.latitude) * (Math.PI / 180);
+        const dLon = (loc2.longitude - loc1.longitude) * (Math.PI / 180);
+        const a =
+            Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.cos(loc1.latitude * (Math.PI / 180)) *
+            Math.cos(loc2.latitude * (Math.PI / 180)) *
+            Math.sin(dLon / 2) * Math.sin(dLon / 2);
+        const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+        return R * c; // Distance in km
+    };
+
+    // Filter messages based on proximity
+    const filteredMessages = messages.filter((message) => {
+        const distance = calculateDistance(userLocation, message.location);
+        return distance <= 5; // Example: Only show messages within 5 km
+    });
+
     return (
         <div>
-            <Complaint messages={messages}></Complaint>
+            <Complaint messages={filteredMessages}></Complaint>
             <form className="submit" onSubmit={handleSendMessage}>
                 <input
                     type="text"
@@ -53,7 +76,7 @@ const ChatRoom = () => {
                 />
                 <button type="submit">Send</button>
             </form>
-            <Geolocation /> {/* Include the Geolocation component */}
+            <Geolocation setUserLocation={setUserLocation} /> {/* Pass setUserLocation as a prop */}
         </div>
     );
 };

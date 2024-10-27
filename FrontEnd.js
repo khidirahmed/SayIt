@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App" style={{ textAlign: 'center', padding: '50px' }}>
       <img src={headerImage} alt="Header" style={{ width: '100%', height: 'auto' }} 
-      style={{ width: '65px', height: '85px' }}/>
+      style ={{ width: '65px', height: '85px' }}/>
       <h1>Say It!</h1>
       <div class="button-container">
       <button className="button" onClick={handleClick}>

@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 
-const Geolocation = () => {
+const Geolocation = ({ setUserLocation }) => { // Accept setUserLocation as a prop
     const [position, setPosition] = useState(null);
     const [error, setError] = useState(null);
     const [watchId, setWatchId] = useState(null);
@@ -15,6 +15,10 @@ const Geolocation = () => {
                         latitude: pos.coords.latitude,
                         longitude: pos.coords.longitude,
                     });
+                    setUserLocation({
+                        latitude: pos.coords.latitude,
+                        longitude: pos.coords.longitude,
+                    }); // Update user location in ChatRoom
                 },
                 (err) => {
                     setError(err.message);
@@ -33,6 +37,10 @@ const Geolocation = () => {
                         latitude: pos.coords.latitude,
                         longitude: pos.coords.longitude,
                     });
+                    setUserLocation({
+                        latitude: pos.coords.latitude,
+                        longitude: pos.coords.longitude,
+                    }); // Update user location in ChatRoom
                 },
                 (err) => {
                     setError(err.message);
