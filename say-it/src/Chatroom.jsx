@@ -1,58 +1,61 @@
+// src/ChatRoom.jsx
+
 import React, { useState, useEffect } from "react";
 import { db, serverTimestamp } from "./firebase";
 import './App.css';
 import Complaint from "./complaint";
-import BluetoothProx from "./Bluetoothprox";  // Import BluetoothProx
+import Geolocation from "./geolocation"; // Import Geolocation
 import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
 
-const BluetoothProx = () => {
-    const [deviceInfo, setDeviceInfo] = useState(null);
-    const [isScanning, setIsScanning] = useState(false);
+const ChatRoom = () => {
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState("");
 
-    const startProximityScan = async () => {
-        setIsScanning(true);
-        try {
-            const device = await navigator.bluetooth.requestDevice({
-                acceptAllDevices: true,
-                optionalServices: ["battery_service"]
+    // Fetch messages in real-time
+    useEffect(() => {
+        const chatRoomRef = collection(db, "nearbyChat", "chatRoom", "messages");
+        const q = query(chatRoomRef, orderBy("timestamp", "asc"));
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const messagesData = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setMessages(messagesData);
+        });
+        return unsubscribe; // Unsubscribe on cleanup
+    }, []);
+
+    // Function to handle sending a new message
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+        if (newMessage.trim()) {
+            const chatRoomRef = collection(db, "nearbyChat", "chatRoom", "messages");
+
+            await addDoc(chatRoomRef, {
+                text: newMessage,
+                timestamp: serverTimestamp(),
+                votes: 0 // Initialize votes to 0
             });
-
-            setDeviceInfo({
-                name: device.name || "Unnamed Device",
-                id: device.id
-            });
-
-            const server = await device.gatt.connect();
-            const service = await server.getPrimaryService("battery_service");
-            const characteristic = await service.getCharacteristic("battery_level");
-            const batteryLevel = await characteristic.readValue();
-            console.log(`Battery level: ${batteryLevel.getUint8(0)}%`);
-
-            device.gatt.disconnect();
-            setIsScanning(false);
-
-        } catch (error) {
-            console.error("Error during Bluetooth scan:", error);
-            setIsScanning(false);
+            setNewMessage(""); // Clear input field
         }
     };
 
     return (
         <div>
-            <button onClick={startProximityScan} disabled={isScanning}>
-                {isScanning ? "Scanning..." : "Turn On Proximity"}
-            </button>
-
-            {deviceInfo ? (
-                <div>
-                    <p>Device Found: {deviceInfo.name}</p>
-                    <p>ID: {deviceInfo.id}</p>
-                </div>
-            ) : (
-                <p>No nearby devices detected.</p>
-            )}
+            <Complaint messages={messages}></Complaint>
+            <form className="submit" onSubmit={handleSendMessage}>
+                <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    placeholder="Type your message..."
+                />
+                <button type="submit">Send</button>
+            </form>
+            <Geolocation /> {/* Include the Geolocation component */}
         </div>
     );
 };
 
-export default BluetoothProx;
+export default ChatRoom;
