@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { db, serverTimestamp } from "./firebase";
 import './App.css';
-import Complaint from "./Components/complaint";
-import { collection, addDoc, onSnapshot, orderBy, query} from "firebase/firestore";
+import Complaint from "./complaint";
+import BluetoothProx from "./Bluetoothprox";  // Import BluetoothProx
+import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
 
 const ChatRoom = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
 
-    // Fetch messages in real-time
     useEffect(() => {
         const chatRoomRef = collection(db, "nearbyChat", "chatRoom", "messages");
         const q = query(chatRoomRef, orderBy("timestamp", "asc"));
@@ -20,10 +20,9 @@ const ChatRoom = () => {
             }));
             setMessages(messagesData);
         });
-        return unsubscribe; // Unsubscribe on cleanup
+        return unsubscribe;
     }, []);
 
-    // Function to handle sending a new message
     const handleSendMessage = async (e) => {
         e.preventDefault();
         if (newMessage.trim()) {
@@ -33,17 +32,15 @@ const ChatRoom = () => {
                 text: newMessage,
                 timestamp: serverTimestamp(),
                 votes: 0 
-                // Initialize votes to 0
             });
-            setNewMessage(""); // Clear input field
+            setNewMessage("");
         }
     };
 
-    // Function to handle upvoting a message
-
     return (
         <div>
-            <Complaint messages={messages}></Complaint>
+            <BluetoothProx />  {/* Render BluetoothProx component */}
+            <Complaint messages={messages} />
             <form className="submit" onSubmit={handleSendMessage}>
                 <input
                     type="text"
@@ -51,10 +48,10 @@ const ChatRoom = () => {
                     onChange={(e) => setNewMessage(e.target.value)}
                     placeholder="Type your message..."
                 />
-                <button type="submit">Send</button>
+                <button type="submit">Sendss</button>
+                
             </form>
         </div>
     );
 };
-
 export default ChatRoom;

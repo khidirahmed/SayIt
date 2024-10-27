@@ -1,6 +1,5 @@
 import React from "react"
-
-import { db} from "/Users/bolajialabi/Documents/GitHub/SayIt/say-it/src/firebase.js";
+import { db} from "./firebase.js";
 import { doc, updateDoc} from "firebase/firestore";
 
 
