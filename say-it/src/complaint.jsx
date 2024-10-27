@@ -25,10 +25,10 @@ const Complaint = ({ messages }) => {
                 {messages.map((message) => (
                     message.votes >= 0 ? (
                     <div key={message.id} style={{ display: "flex", alignItems: "center", marginBottom: "10px" }}>
-                        <p style={{ flex: 1 }}>{message.text}</p>
+                        <p className="complaining" style={{ flex: 1, fontSize: 25 }} >{message.text}</p>
                         <div style={{ display: "flex", alignItems: "center" }}>
                         <button onClick={() => handleUpvote(message.id, message.votes)}>👍</button>
-                            <span style={{ margin: "0 5px" }}>{message.votes}</span>
+                            <span style={{ margin: "0 5px" }}></span>
                             <button onClick={() => handleDownvote(message.id, message.votes)}>👎</button>
                         </div>
                     </div>) :
