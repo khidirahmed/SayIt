@@ -11,6 +11,7 @@ const ChatRoom = () => {
     const [messages, setMessages] = useState([]);
     const [newMessage, setNewMessage] = useState("");
     const [userLocation, setUserLocation] = useState(null);
+    const [proximityDistance, setProximityDistance] = useState(5); // Default distance in km
 
     // Fetch messages in real-time
     useEffect(() => {
@@ -61,10 +62,11 @@ const ChatRoom = () => {
     // Filter messages based on proximity
     const filteredMessages = messages.filter((message) => {
         const distance = calculateDistance(userLocation, message.location);
-        return distance <= 5; // Example: Only show messages within 5 km
+        return distance <= proximityDistance; // Use user-defined proximity distance
     });
 
     return (
+        
         <div>
             <Complaint messages={filteredMessages}></Complaint>
             <form className="submit" onSubmit={handleSendMessage}>
@@ -77,7 +79,24 @@ const ChatRoom = () => {
                 <button type="submit">Send</button>
             </form>
             <Geolocation setUserLocation={setUserLocation} /> {/* Pass setUserLocation as a prop */}
+            <p></p>
+
+            {/* Input for setting proximity distance */}
+            <div>
+                <label>
+                    Set Proximity Distance (km):
+                    <input
+                        type="number"
+                        value={proximityDistance}
+                        onChange={(e) => setProximityDistance(e.target.value)}
+                        min="0" // Ensure the distance can't be negative
+                    />
+                </label>
+            </div>
+            <p></p>
+            <p></p>
         </div>
+        
     );
 };
 
