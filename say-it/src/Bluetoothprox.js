@@ -1,53 +1,57 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { db, serverTimestamp } from "./firebase";
+import './App.css';
+import Complaint from "./complaint";
+import BluetoothProx from "./Bluetoothprox";  // Import BluetoothProx
+import { collection, addDoc, onSnapshot, orderBy, query } from "firebase/firestore";
 
-const BluetoothProx = () => {
-    const [deviceInfo, setDeviceInfo] = useState(null);
-    const [isScanning, setIsScanning] = useState(false);
+const ChatRoom = () => {
+    const [messages, setMessages] = useState([]);
+    const [newMessage, setNewMessage] = useState("");
 
-    const startProximityScan = async () => {
-        setIsScanning(true);
-        try {
-            const device = await navigator.bluetooth.requestDevice({
-                acceptAllDevices: true,
-                optionalServices: ["battery_service"]
+    useEffect(() => {
+        const chatRoomRef = collection(db, "nearbyChat", "chatRoom", "messages");
+        const q = query(chatRoomRef, orderBy("timestamp", "asc"));
+
+        const unsubscribe = onSnapshot(q, (snapshot) => {
+            const messagesData = snapshot.docs.map((doc) => ({
+                id: doc.id,
+                ...doc.data()
+            }));
+            setMessages(messagesData);
+        });
+        return unsubscribe;
+    }, []);
+
+    const handleSendMessage = async (e) => {
+        e.preventDefault();
+        if (newMessage.trim()) {
+            const chatRoomRef = collection(db, "nearbyChat", "chatRoom", "messages");
+
+            await addDoc(chatRoomRef, {
+                text: newMessage,
+                timestamp: serverTimestamp(),
+                votes: 0 
             });
-
-            setDeviceInfo({
-                name: device.name || "Unnamed Device",
-                id: device.id
-            });
-
-            const server = await device.gatt.connect();
-            const service = await server.getPrimaryService("battery_service");
-            const characteristic = await service.getCharacteristic("battery_level");
-            const batteryLevel = await characteristic.readValue();
-            console.log(`Battery level: ${batteryLevel.getUint8(0)}%`);
-
-            device.gatt.disconnect();
-            setIsScanning(false);
-
-        } catch (error) {
-            console.error("Error during Bluetooth scan:", error);
-            setIsScanning(false);
+            setNewMessage("");
         }
     };
 
     return (
         <div>
-            <button onClick={startProximityScan} disabled={isScanning}>
-                {isScanning ? "Scanning..." : "Turn On Proximity"}
-            </button>
-
-            {deviceInfo ? (
-                <div>
-                    <p>Device Found: {deviceInfo.name}</p>
-                    <p>ID: {deviceInfo.id}</p>
-                </div>
-            ) : (
-                <p>No nearby devices detected.</p>
-            )}
+            <BluetoothProx />  {/* Render BluetoothProx component */}
+            <Complaint messages={messages} />
+            <form className="submit" onSubmit={handleSendMessage}>
+                <input
+                    type="text"
+                    value={newMessage}
+                    onChange={(e) => setNewMessage(e.target.value)}
+                    placeholder="Type your message..."
+                />
+                <button type="submit">Send</button>
+            </form>
         </div>
     );
 };
-<p>BluetoothProx Component Loaded</p>
-export default BluetoothProx;
+
+export default ChatRoom;
