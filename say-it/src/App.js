@@ -1,5 +1,5 @@
 import './App.css';
-import ChatRoom from './Backend/Chatroom';
+import ChatRoom from './Chatroom';
 
 function App() {
   return (
